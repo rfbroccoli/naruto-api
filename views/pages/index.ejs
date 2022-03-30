@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/head'); %>
+    <title>Naruto API</title>
+  </head>
+  <body>
+    <header><%- include('../partials/header'); %></header>
+
+    <main>
+      <div class="jumbotron">
+        <h1>Welcome from Naruto API</h1>
+        <h3>API Route</h3>
+        <a href="http://localhost:3000/api/v1/shinobi"
+          >http://localhost:3000/api/v1/shinobi</a
+        >
+
+        <h3>Shinobi List</h3>
+        <ul>
+          <% shinobi.forEach(function(ninja) { %>
+          <a href="/shinobi/<%= ninja.slug %>">
+            <li>
+              <strong><%= ninja.name %></strong>
+              (<%= ninja.team %>)
+            </li>
+          </a>
+          <% }); %>
+        </ul>
+      </div>
+    </main>
+
+    <footer><%- include('../partials/footer'); %></footer>
+  </body>
+</html>

@@ -23,5 +23,5 @@
     - **create** one
     - **read** one
     - **read** many
-    - **read** one
+    - **update** one
     - **delete** one

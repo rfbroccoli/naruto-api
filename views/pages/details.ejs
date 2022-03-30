@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/head'); %>
+    <title><%= shinobi.name %></title>
+  </head>
+  <body>
+    <header><%- include('../partials/header'); %></header>
+
+    <main>
+      <div class="jumbotron">
+          <img src="<%= shinobi.picture %>" alt="">
+        <h1>
+          <strong><%= shinobi.name %></strong>
+        </h1>
+
+        (<%= shinobi.team %>)
+      </div>
+    </main>
+
+    <footer><%- include('../partials/footer'); %></footer>
+  </body>
+</html>
