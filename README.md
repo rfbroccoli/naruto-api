@@ -1,0 +1,27 @@
+- start the project with `npm init -y` as usual
+- install packages: `npm i express mongodb dotenv ejs`
+    - `express` for backend server
+    - `mongodb` for database
+    - `dotenv` for connecting with `.env` file
+    - `ejs` for rendering frontend html
+- setup dev environment:
+    - add `"type": "module",` in `package.json`
+    - install nodemon with `npm i -D nodemon`
+    - add `"dev": "nodemon -r dotenv/config index.js"` and 
+    `"start": "node -r dotenv/config index.js"` to the `scripts` in the `package.json`
+- create MVC folders: `models`, `views`, `controllers`
+    - `models` for **data models**
+    - `views` for **rendering data**
+    - `controllers` for **controlling data**
+- create `routes` folder for **routes**
+- create a server in `index.js`
+- add `PORT` to `.env` and run server with `npm run dev`
+- create a model in `models`
+- create a `mongodb` database and get `MONGODB_URL`
+- create mongodb `clientPromise`
+- add and implement CRUD routes in `routes` and `controllers`:
+    - **create** one
+    - **read** one
+    - **read** many
+    - **read** one
+    - **delete** one
