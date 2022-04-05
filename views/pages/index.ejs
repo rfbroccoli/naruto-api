@@ -11,8 +11,8 @@
       <div class="jumbotron">
         <h1>Welcome from Naruto API</h1>
         <h3>API Route</h3>
-        <a href="http://localhost:3000/api/v1/shinobi"
-          >http://localhost:3000/api/v1/shinobi</a
+        <a href="<%= url %>"
+          ><%= url %></a
         >
 
         <h3>Shinobi List</h3>
@@ -22,6 +22,7 @@
             <li>
               <strong><%= ninja.name %></strong>
               (<%= ninja.team %>)
+              <p><%= ninja.village.name %></p>
             </li>
           </a>
           <% }); %>

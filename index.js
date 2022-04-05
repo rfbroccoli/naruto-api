@@ -1,6 +1,7 @@
 import express, { json } from "express"
-import { aboutPage, detailsPage, homePage } from "./controllers/shinobi.js"
+import { aboutPage, detailsPage, homePage } from "./controllers/page.js"
 import shinobiRouter from "./routes/shinobi.js"
+import villageRouter from "./routes/village.js"
 
 const app = express()
 const { PORT } = process.env
@@ -15,7 +16,9 @@ app.get('/about', aboutPage);
 app.get("/shinobi/:slug", detailsPage)
 
 app.use(json())
-app.use("/api/v1/shinobi", shinobiRouter)
+const apiRoute = "/api/v1"
+app.use(`${apiRoute}/shinobi`, shinobiRouter)
+app.use(`${apiRoute}/village`, villageRouter)
 
 
 

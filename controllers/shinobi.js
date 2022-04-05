@@ -1,33 +1,16 @@
 import { clientPromise } from "../db.js"
 import { Shinobi } from "../models/shinobi.js"
 
+
 const client = await clientPromise
 const db = client.db("naruto_api")
 const col = db.collection("shinobi")
 
-export const homePage = async (req, res) => {
-    const data = await col.find({}).toArray()
-    res.render('pages/index', {
-        shinobi: data
-    });
-}
-
-export const detailsPage = async (req, res) => {
-    const { slug } = req.params
-    const data = await col.findOne({ slug })
-    res.render('pages/details', {
-        shinobi: data
-    });
-}
-
-export const aboutPage = async (req, res) => {
-    res.render('pages/about')
-}
 
 export const createShinobi = async (req, res) => {
-    const { name, team, picture } = req.body
+    const { name, team, picture, village } = req.body
     try {
-        const shinobi = new Shinobi(name, team, picture)
+        const shinobi = new Shinobi(name, team, picture, village)
         await col.insertOne(shinobi)
         res.json(shinobi)
     } catch (err) {
@@ -39,7 +22,23 @@ export const createShinobi = async (req, res) => {
 export const readOneShinobi = async (req, res) => {
     const { name } = req.params
     try {
-        const shinobi = await col.findOne({ name })
+        const shinobi = await col.aggregate([
+            {
+                $match: {
+                    name 
+                }
+            },
+            {
+                $lookup:
+                {
+                    from: 'village',
+                    localField: 'village',
+                    foreignField: 'name',
+                    as: 'village'
+                },
+            },
+            // { $unwind: "$village" },
+        ]).toArray()
         if (shinobi) {
             res.json(shinobi)
         } else {
@@ -54,7 +53,19 @@ export const readOneShinobi = async (req, res) => {
 export const readAllShinobi = async (req, res) => {
     try {
         const { query } = req
-        const data = await col.find(query).toArray()
+        // const data = await col.find(query).toArray()
+        const data = await col.aggregate([
+            {
+                $lookup:
+                {
+                    from: 'village',
+                    localField: 'village',
+                    foreignField: 'name',
+                    as: 'village'
+                },
+            },
+            // { $unwind: "$village" },
+        ]).toArray()
         res.json(data)
     } catch (err) {
         console.log(err)
