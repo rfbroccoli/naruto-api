@@ -39,7 +39,7 @@ export const readOneShinobi = async (req, res) => {
       ])
       .toArray();
     if (shinobi) {
-      res.json(shinobi);
+      res.json(shinobi[0]);
     } else {
       res.status(404).json("not found");
     }
@@ -63,7 +63,7 @@ export const readAllShinobi = async (req, res) => {
             as: "village",
           },
         },
-        // { $unwind: "$village" },
+        { $unwind: "$village" },
       ])
       .toArray();
     res.json(data);
@@ -102,4 +102,3 @@ export const deleteOneShinobi = async (req, res) => {
     res.json(err);
   }
 };
-
